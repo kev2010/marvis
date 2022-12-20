@@ -26,13 +26,6 @@ const app = initializeApp(firebaseConfig);
 // Initialize Realtime Database and get a reference to the service
 const database = getDatabase(app);
 
-// GPT-3
-const { Configuration, OpenAIApi } = require("openai");
-const configuration = new Configuration({
-  apiKey: "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",
-});
-const openai = new OpenAIApi(configuration);
-
 function App() {
   const [myText, setMyText] = useState("...");
 
@@ -50,15 +43,20 @@ function App() {
     });
   };
 
+  const sendMotor = (event, newMotor) => {
+    const db = getDatabase();
+    update(ref(db, "marvis"), {
+      motor: newMotor,
+    });
+  };
+
   const talk = (event) => {
     if (event.key === "Enter") {
       const requestOptions = {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization:
-            "Bearer " +
-            String("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"),
+          Authorization: "Bearer " + String(""),
         },
         body: JSON.stringify({
           prompt: event.target.value,
@@ -109,6 +107,21 @@ function App() {
               defaultValue={50}
               max={255}
               onChangeCommitted={sendFlashingSpeed}
+              valueLabelDisplay="on"
+            />
+          </Box>
+        </div>
+        <div className="Slider">
+          <h4 className="Header">Motor</h4>
+          <Box sx={{ width: 250 }}>
+            <Slider
+              aria-label="Custom marks"
+              defaultValue={0}
+              min={-10}
+              max={10}
+              marks={true}
+              color="secondary"
+              onChangeCommitted={sendMotor}
               valueLabelDisplay="on"
             />
           </Box>
