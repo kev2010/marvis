@@ -29,7 +29,7 @@ const database = getDatabase(app);
 // GPT-3
 const { Configuration, OpenAIApi } = require("openai");
 const configuration = new Configuration({
-  apiKey: "",
+  apiKey: "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",
 });
 const openai = new OpenAIApi(configuration);
 
