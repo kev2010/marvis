@@ -56,9 +56,7 @@ function App() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization:
-            "Bearer " +
-            String("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"),
+          Authorization: "Bearer " + String("API_KEY"),
         },
         body: JSON.stringify({
           prompt: event.target.value,
